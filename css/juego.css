@@ -4,7 +4,7 @@ body {
   width: 940px;
   margin: 5% auto;
   min-height: 100%;
-  background-image: url(../images/adventure.jpg);
+  background-image: url("../images/wood.jpg");
 }
 ul {
   padding-left: 0;
@@ -13,6 +13,7 @@ ul {
 li {
   padding: 5px 0;
   animation: fadein 5s;
+  margin-left: 2%;
 }
 li::before {
   content: "• ";
@@ -29,28 +30,95 @@ li::before {
   margin: 0;
   vertical-align: top;
 }
+
 .col-40 {
-  background: #FFF;
+  background: #f2f2f2;  
+  opacity: 0.7;
   padding: 30px;
   color: #000;
 }
 
-.col-60 {
-  background: #E84A5F;
-
-}
-
 #flecha{
-  font-size: 60px;
+  font-size: 70px;
 }
 
 .texto-centrado {
   text-align: center;
 }
 
+#titulo{
+  font-size: 1.5em;
+  text-align: center;
+  background-color: #006666;
+  color: #fff;
+  letter-spacing: 0.3em;
+  margin-bottom: 5%;
+}
+
 #juego div {
   text-align: center;
   animation: fadein 2s;
+}
+
+.tablero-rompecabezas{
+  width: 600px;
+  height: 600px;
+}
+
+.tablero-rompecabezas div{
+  width: 33.3%;
+  height: 33.3%;
+  border: 1px solid #006666;
+  float: left;
+}
+
+.tablero-rompecabezas div img{
+  width: 100%;
+}
+
+#objetivo{
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+#img-final-resultado{
+  width: 60%;
+}
+
+/*Ventana Modal caundo el usuario gana*/
+.modal{
+  background-image: url("../images/youWin.gif");
+}
+.modal-content{  
+  height: 150px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.modal-header{
+  height: 50px;
+  color: #006666;
+  letter-spacing: 0.2em;
+}
+.modal-body{
+  display: flex;
+  align-items: center;
+  align-self: center;
+  font-size: 1.3em; 
+}
+
+.modal-footer{
+  justify-content: flex-start;
+  background-color: #f2f2f2;
+  font-size: 0.9em;
+  color: grey;
+  display: none;
+}
+
+#footer{
+  display: flex;
+  justify-content: center;
+  color: black;
+  opacity: 0.5;  
 }
 
 @keyframes fadein {
