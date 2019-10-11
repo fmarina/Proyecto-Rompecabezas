@@ -11,9 +11,6 @@ var grilla = [
     [7, 8, 9],
 ];
 
-//variable con los ultimos movimientos
-var mensaje;
-
 /* Estas dos variables son para guardar la posición de la pieza vacía. 
 Esta posición comienza siendo la [2, 2]*/
 var filaVacia = 2;
@@ -37,6 +34,8 @@ function mostrarUltimoMovimiento(direccionMovimiento){
    actualizarUltimoMovimiento(direccionMovimiento);
 }
 
+//variable con los ultimos movimientos
+var mensaje;
 //funcion que muestra los ultimos movimientos realizados
 function ultimosMovimientos(array){
   var lastMove = [];
@@ -58,7 +57,6 @@ function ultimosMovimientos(array){
     mensaje = lastMoveString;
   }  
 }
-
 function transformarMovimiento(movimiento){
   var mov;
   switch(movimiento){
@@ -83,39 +81,28 @@ function transformarMovimiento(movimiento){
 
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
-function chequearSiGano() {
-  var grillaComparacion = [1,2,3,4,5,6,7,8,9];  
-  var grillaActual = [];
-  for(var i = 0; i < grilla.length; i++){    
-    for(var j = 0; j < grilla[i].length; j++){
-      grillaActual.push(grilla[i][j]);   
-    }    
+function chequearSiGano(){
+  var grillaGanadora = [
+          [1,2,3],
+          [4,5,6],
+          [7,8,9],
+  ];
+  for (var i = 0; i < 3; i++){
+    for (var j = 0; j < 3; j++){
+      if (grilla[i][j] != grillaGanadora[i][j]){
+        return false;
+      }
+    }
   }
-  if(isEqual(grillaComparacion, grillaActual)){
-    mostrarCartelGanador();
-    contador = 0;
-  }
-}
-
-function isEqual(a1,a2){
-  if(a1.length !== a2.length){
-    return false;
-  }
-  else if(a1.toString() === a2.toString()){
-    return true;
-  }
-  else{
-    return false;
-  }
+  return true;
 }
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
   $("#exampleModalCenter").modal("show");
   var modalFooter = document.getElementById("modal-footer1");
-  modalFooter.style.display = "inline";
-  ultimosMovimientos(movimientos);
-  modalFooter.innerHTML += mensaje;
+  modalFooter.innerHTML = "Movimientos realizados: " + contadorMovimientosTeclas;
+  contadorMovimientosTeclas = 0;
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -301,13 +288,16 @@ permite detectar eventos, por ejemplo, cuando una tecla es presionada y en
 base a eso hacer algo. No es necesario que entiendas como funciona esto ahora, 
 en el futuro ya lo vas a aprender. Por ahora, sólo hay que entender que cuando
 se toca una tecla se hace algo en respuesta, en este caso, un movimiento */
+var contadorMovimientosTeclas = 0;
+
 function capturarTeclas() {
   document.body.onkeydown = (function(evento) {
     if (evento.which === codigosDireccion.ABAJO ||
       evento.which === codigosDireccion.ARRIBA ||
       evento.which === codigosDireccion.DERECHA ||
       evento.which === codigosDireccion.IZQUIERDA) {
-        
+      
+      contadorMovimientosTeclas++;  
       moverEnDireccion(evento.which);
 
         var gano = chequearSiGano();
