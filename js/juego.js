@@ -1,4 +1,3 @@
-// Arreglo que contiene las intrucciones del juego 
 var instrucciones = ["Utilizar las flechas para mover las piezas", 
                      "Ordenar las piezas hasta alcanzar la imagen objetivo"];
 // Arreglo para ir guardando los movimientos que se vayan realizando
@@ -16,10 +15,6 @@ Esta posición comienza siendo la [2, 2]*/
 var filaVacia = 2;
 var columnaVacia = 2;
 
-/* Esta función deberá recorrer el arreglo de instrucciones pasado por parámetro. 
-Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-instrucciones'. 
-Para eso deberás usar la función ya implementada mostrarInstruccionEnLista().
-Podés ver su implementación en la ultima parte de este codigo. */
 function mostrarInstrucciones(instrucciones) {
     for(var i = 0; i < instrucciones.length; i++){
       var instruccion = instrucciones[i];
@@ -27,8 +22,6 @@ function mostrarInstrucciones(instrucciones) {
     }
 }
 
-/* COMPLETAR: Crear función que agregue la última dirección al arreglo de movimientos
-y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 function mostrarUltimoMovimiento(direccionMovimiento){
   var ultimoMovimiento = movimientos.push(direccionMovimiento);
    actualizarUltimoMovimiento(direccionMovimiento);
@@ -105,16 +98,6 @@ function mostrarCartelGanador() {
   contadorMovimientosTeclas = 0;
 }
 
-/* Función que intercambia dos posiciones en la grilla.
-Pensar como intercambiar dos posiciones en un arreglo de arreglos. 
-Para que tengas en cuenta:
-Si queremos intercambiar las posiciones [1,2] con la [0, 0], si hacemos: 
-arreglo[1][2] = arreglo[0][0];
-arreglo[0][0] = arreglo[1][2];
-
-En vez de intercambiar esos valores vamos a terminar teniendo en ambas posiciones el mismo valor.
-Se te ocurre cómo solucionar esto con una variable temporal?
-*/
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
     var pieza1 = grilla[filaPos1][columnaPos1];
     var pieza2 = grilla[filaPos2][columnaPos2];
@@ -138,8 +121,7 @@ function posicionValida(fila, columna) {
     }
 }
 
-/* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
-Las direcciones están dadas por números que representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
+/* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento. */
 function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
@@ -168,15 +150,12 @@ function moverEnDireccion(direccion) {
     nuevaFilaPiezaVacia = filaVacia;
   }
 
-  /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
-  Para que esta parte del código funcione correctamente deberás haber implementado 
-  las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
+  // A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
 
     if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
         intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
         actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-  //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
-       mostrarUltimoMovimiento(direccion);
+        mostrarUltimoMovimiento(direccion);
     }
 }
 
@@ -185,16 +164,6 @@ function moverEnDireccion(direccion) {
 /////////NO TOCAR A MENOS QUE SEPAS LO QUE HACES//////////
 //////////////////////////////////////////////////////////
 
-/* Las funciones y variables que se encuentran a continuación ya están implementadas.
-No hace falta que entiendas exactamente que es lo que hacen, ya que contienen
-temas aún no vistos. De todas formas, cada una de ellas tiene un comentario
-para que sepas que se está haciendo a grandes rasgos. NO LAS MODIFIQUES a menos que
-entiendas perfectamente lo que estás haciendo! */
-
-/* codigosDireccion es un objeto que te permite reemplazar
-el uso de números confusos en tu código. Para referirte a la dir
-izquierda, en vez de usar el número 37, ahora podés usar:
-codigosDireccion.IZQUIERDA. Esto facilita mucho la lectura del código. */
 var codigosDireccion = {
     IZQUIERDA: 37,
     ARRIBA: 38,
@@ -202,9 +171,7 @@ var codigosDireccion = {
     ABAJO: 40
 }
 
-/* Funcion que realiza el  logico (en la grilla) y ademas actualiza
-el  en la pantalla (DOM). Para que funcione debera estar implementada
-la funcion intercambiarPosicionesGrilla() */
+//Funcion que realiza el logico (en la grilla) y ademas actualiza en la pantalla (DOM).
 function intercambiarPosiciones(fila1, columna1, fila2, columna2) {
   //  posiciones en la grilla
   var pieza1 = grilla[fila1][columna1];
@@ -212,11 +179,9 @@ function intercambiarPosiciones(fila1, columna1, fila2, columna2) {
 
   intercambiarPosicionesGrilla(fila1, columna1, fila2, columna2);
   intercambiarPosicionesDOM('pieza' + pieza1, 'pieza' + pieza2);
-
 }
 
-/*  de posiciones de los elementos del DOM que representan
-las fichas en la pantalla */
+//posiciones de los elementos del DOM que representan las fichas en la pantalla
 
 function intercambiarPosicionesDOM(idPieza1, idPieza2) {
   //  posiciones en el DOM
@@ -263,8 +228,7 @@ function mostrarInstruccionEnLista(instruccion, idLista) {
 }
 
 /* Función que mezcla las piezas del tablero una cantidad de veces dada.
-Se calcula una posición aleatoria y se mueve en esa dirección. De esta forma
-se mezclará todo el tablero. */
+Se calcula una posición aleatoria y se mueve en esa dirección. Se mezclara el tablero*/
 
 function mezclarPiezas(veces) {
   if (veces <= 0) {
@@ -283,11 +247,7 @@ function mezclarPiezas(veces) {
     }, 100);
 }
 
-/* capturarTeclas: Esta función captura las teclas presionadas por el usuario. Javascript
-permite detectar eventos, por ejemplo, cuando una tecla es presionada y en 
-base a eso hacer algo. No es necesario que entiendas como funciona esto ahora, 
-en el futuro ya lo vas a aprender. Por ahora, sólo hay que entender que cuando
-se toca una tecla se hace algo en respuesta, en este caso, un movimiento */
+// capturarTeclas: Esta función captura las teclas presionadas por el usuario.
 var contadorMovimientosTeclas = 0;
 
 function capturarTeclas() {
@@ -312,13 +272,11 @@ function capturarTeclas() {
 }
 
 /* Se inicia el rompecabezas mezclando las piezas 60 veces 
-y ejecutando la función para que se capturen las teclas que 
-presiona el usuario */
+y ejecutando la función para que se capturen las teclas  */
 function iniciar() {
     mostrarInstrucciones(instrucciones);
     mezclarPiezas(30);
     capturarTeclas();
 }
 
-// Ejecutamos la función iniciar
 iniciar();
